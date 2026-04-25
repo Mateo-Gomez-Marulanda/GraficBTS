@@ -1,5 +1,8 @@
 package com.example.Model.ArbolBase;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Tree<T extends Comparable<T>> {
     private Node<T> root;
     private int size;
@@ -21,11 +24,6 @@ public class Tree<T extends Comparable<T>> {
     public boolean isEmpty() {
         return root == null;
     }
-
-    public int weight(){
-        return 0;
-    }
-    
 
     public boolean put(T data) {
         if (data == null) {
@@ -221,25 +219,32 @@ public class Tree<T extends Comparable<T>> {
         }
     }
 
-    // pendiente de revision
-    // private int getHeight(Node<T> node) {
-    // if (node == null) {
-    // return 0;
-    // }
-    // return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight()));
-    // }
+    public String levelOrder() {
+        if (isEmpty())
+            return null; // Árbol vacío
 
-    // // Metodos de recorrido por niveles: por niveles o amplitud
-    // public void levelOrder() {
-    // if (root == null) {
-    // System.out.println("tree is empty.");
-    // } else {
-    // levelOrderR(root);
-    // System.out.println(); // salto de línea al final
-    // }
-    // }
+        Queue<Node<T>> queue = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
 
-    // private void levelOrderR(Node<T> current){
+        queue.add(root);
 
-    // }
+        while (!queue.isEmpty()) {
+            int size = queue.size(); // nodos en el nivel actual
+
+            for (int i = 0; i < size; i++) {
+                Node<T> current = queue.poll();
+
+                sb.append(current.getValue()).append(" ");
+
+                if (current.getLeft() != null)
+                    queue.add(current.getLeft());
+                if (current.getRight() != null)
+                    queue.add(current.getRight());
+            }
+            
+            sb.append("\n"); // salto de nivel
+        }
+
+        return sb.toString().trim(); // Retorna la cadena sin espacios al final
+    }
 }

@@ -22,9 +22,10 @@ public class VisualizadorABB extends JFrame {
         JButton btnInsertar = new JButton("Insertar");
         JButton btnEliminar = new JButton("Eliminar");
         JButton btnBuscar = new JButton("Buscar");
-        JButton btnInOrder = new JButton("InOrder");
-        JButton btnPreOrder = new JButton("PreOrder");
-        JButton btnPostOrder = new JButton("PostOrder");
+        JButton btnInOrder = new JButton("Recorrido Inodrden");
+        JButton btnPreOrder = new JButton("Recorrido PreOrder");
+        JButton btnPostOrder = new JButton("Recorrido PostOrder");
+        JButton btnLevelOrder = new JButton("Recorrido por Niveles");
 
         controles.add(new JLabel("Valor:"));
         controles.add(txtDato);
@@ -34,6 +35,7 @@ public class VisualizadorABB extends JFrame {
         controles.add(btnInOrder);
         controles.add(btnPreOrder);
         controles.add(btnPostOrder);
+        controles.add(btnLevelOrder);
 
         // Lienzo de dibujo
         canvas = new JPanel() {
@@ -90,7 +92,8 @@ public class VisualizadorABB extends JFrame {
                 boolean encontrado = arbol.binarySearch(valor);
 
                 if (encontrado) {
-                    JOptionPane.showMessageDialog(this, "El valor " + valor + " SÍ existe en el árbol", "Valor Encontrado",
+                    JOptionPane.showMessageDialog(this, "El valor " + valor + " SÍ existe en el árbol",
+                            "Valor Encontrado",
                             JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "El valor " + valor + " NO existe en el árbol",
@@ -130,6 +133,17 @@ public class VisualizadorABB extends JFrame {
                         JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Recorrido PostOrder:\n\n" + resultado, "PostOrder",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        btnLevelOrder.addActionListener(e -> {
+            String resultado = arbol.levelOrder();
+            if (resultado == null) {
+                JOptionPane.showMessageDialog(this, "LevelOrder no se pudo ejecutar, árbol vacío", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Recorrido por Niveles:\n\n" + resultado, "LevelOrder",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         });
