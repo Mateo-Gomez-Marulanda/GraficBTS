@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.Unidad3.Arboles.ArbolBase;
+package com.example.Model.ArbolBase;
 
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     private T value;
