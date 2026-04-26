@@ -144,6 +144,62 @@ public class Tree<T extends Comparable<T>> {
         }
         return binarySearchR(root, data); // se llama al metodo recursivo
     }
+    public void weight(){
+        if (root == null) {
+            System.out.println("El árbol está vacío");
+        } else {
+            int weight = weightR(root);
+            System.out.println("El peso del árbol es: " + weight);
+        }
+    }
+
+    private int weightR(Node<T> current) {
+        if (current == null) {
+            return 0;
+        }
+        int leftWeight = weightR(current.getLeft());
+        int rightWeight = weightR(current.getRight());
+        return leftWeight + rightWeight + 1;
+    }
+
+    public void height() {
+        if (root == null) {
+            System.out.println("El árbol está vacío");
+        } else {
+            int height = heightR(root);
+            System.out.println("La altura del árbol es: " + height);
+        }
+    }
+
+    private int heightR(Node<T> current) {
+        if (current == null) {
+            // Altura de un árbol vacío es -1
+            return -1; 
+        }
+        int leftHeight = heightR(current.getLeft());
+        int rightHeight = heightR(current.getRight());
+        // Altura del nodo actual
+        return Math.max(leftHeight, rightHeight) + 1; 
+    }
+
+    public void levels() {
+        if (root == null) {
+            System.out.println("El árbol está vacío");
+        } else {
+            int levels = levelsR(root);
+            System.out.println("El número de niveles del árbol es: " + levels);
+        }
+    }
+
+    private int levelsR(Node<T> current) {
+        if (current == null) {
+            return 0; // Un árbol vacío tiene 0 niveles
+        }
+        int leftLevels = levelsR(current.getLeft());
+        int rightLevels = levelsR(current.getRight());
+        // El número de niveles es el máximo entre los niveles de los subárboles + 1 para el nodo actual
+        return Math.max(leftLevels, rightLevels) + 1; 
+    }
 
     // metodo recursivo para buscar un valor en el arbol
     private boolean binarySearchR(Node<T> current, T data) {
